@@ -1,5 +1,11 @@
 # x-ray Crawler
 
+[![CI](https://github.com/HMB-research/x-ray-crawler/actions/workflows/ci.yml/badge.svg)](https://github.com/HMB-research/x-ray-crawler/actions/workflows/ci.yml)
+[![Security Audit](https://github.com/HMB-research/x-ray-crawler/actions/workflows/security.yml/badge.svg)](https://github.com/HMB-research/x-ray-crawler/actions/workflows/security.yml)
+[![Release](https://github.com/HMB-research/x-ray-crawler/actions/workflows/release.yml/badge.svg)](https://github.com/HMB-research/x-ray-crawler/actions/workflows/release.yml)
+[![npm version](https://badge.fury.io/js/x-ray-crawler.svg)](https://badge.fury.io/js/x-ray-crawler)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Friendly web crawler for [x-ray](http://github.com/lapwinglabs/x-ray).
 
 ## Features
@@ -49,6 +55,62 @@ Coming Soon.
 ```js
 npm test
 ```
+
+## Development
+
+### CI/CD Pipeline
+
+This project uses GitHub Actions for continuous integration and deployment:
+
+- **Automated Testing:** Tests run on Node.js 18.x, 20.x, and 22.x
+- **Security Auditing:** Daily vulnerability scans and dependency reviews
+- **Automated Releases:** Semantic versioning based on conventional commits
+- **NPM Publishing:** Automatic package publishing on release
+
+See [CI/CD Guide](.github/CICD_GUIDE.md) for detailed documentation.
+
+### Contributing
+
+We welcome contributions! Please see our [Contributing Guide](.github/CONTRIBUTING.md) for details on:
+
+- Setting up your development environment
+- Coding standards and commit message conventions
+- Pull request process
+- Testing guidelines
+
+**Quick Start for Contributors:**
+
+```bash
+# Fork and clone the repository
+git clone https://github.com/YOUR_USERNAME/x-ray-crawler.git
+cd x-ray-crawler
+
+# Install dependencies
+npm install
+
+# Run tests
+npm test
+
+# Create a feature branch
+git checkout -b feature/my-feature
+
+# Make changes and commit using conventional commits
+git commit -m "feat: add new feature"
+
+# Push and create a pull request
+git push origin feature/my-feature
+```
+
+### Commit Message Format
+
+This project uses [Conventional Commits](https://www.conventionalcommits.org/) for automated versioning:
+
+- `feat:` - New feature (minor version bump)
+- `fix:` - Bug fix (patch version bump)
+- `docs:` - Documentation changes
+- `chore:` - Maintenance tasks
+
+Example: `feat: add support for custom headers`
 
 ## License
 
