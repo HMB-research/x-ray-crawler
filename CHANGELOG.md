@@ -1,3 +1,10 @@
+## [2.0.8](https://github.com/HMB-research/x-ray-crawler/compare/v2.0.7...v2.0.8) (2025-10-21)
+
+
+### Bug Fixes
+
+* update NPM package metadata with correct installation instructions ([600bbc9](https://github.com/HMB-research/x-ray-crawler/commit/600bbc92cfecf81b3a8172c86824c48712275d93))
+
 ## [2.0.7](https://github.com/HMB-research/x-ray-crawler/compare/v2.0.6...v2.0.7) (2025-10-21)
 
 
