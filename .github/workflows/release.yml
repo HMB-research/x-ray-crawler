@@ -59,7 +59,7 @@ jobs:
           extra_plugins: |
             @semantic-release/changelog@6
             @semantic-release/git@10
-            conventional-changelog-conventionalcommits
+            conventional-changelog-conventionalcommits@8
           branches: |
             [
               'main',
