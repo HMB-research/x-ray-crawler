@@ -3,7 +3,7 @@
 [![CI](https://github.com/HMB-research/x-ray-crawler/actions/workflows/ci.yml/badge.svg)](https://github.com/HMB-research/x-ray-crawler/actions/workflows/ci.yml)
 [![Security Audit](https://github.com/HMB-research/x-ray-crawler/actions/workflows/security.yml/badge.svg)](https://github.com/HMB-research/x-ray-crawler/actions/workflows/security.yml)
 [![Release](https://github.com/HMB-research/x-ray-crawler/actions/workflows/release.yml/badge.svg)](https://github.com/HMB-research/x-ray-crawler/actions/workflows/release.yml)
-[![npm version](https://badge.fury.io/js/x-ray-crawler.svg)](https://badge.fury.io/js/x-ray-crawler)
+[![npm version](https://badge.fury.io/js/%40hmb-research%2Fx-ray-crawler.svg)](https://badge.fury.io/js/%40hmb-research%2Fx-ray-crawler)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Friendly web crawler for [x-ray](http://github.com/lapwinglabs/x-ray).
@@ -40,13 +40,9 @@ crawl('http://lapwinglabs.com', function(err, ctx) {
 
 ## Installation
 
-```js
-npm install x-ray-crawler
+```bash
+npm install @hmb-research/x-ray-crawler
 ```
-
-## API
-
-Coming Soon.
 
 ## Test
 
