@@ -59,6 +59,9 @@ jobs:
           extra_plugins: |
             @semantic-release/changelog@6
             @semantic-release/git@10
+            @semantic-release/commit-analyzer@13
+            @semantic-release/release-notes-generator@14
+            conventional-changelog-conventionalcommits@8
           branches: |
             [
               'main',
