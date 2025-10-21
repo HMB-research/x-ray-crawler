@@ -1,3 +1,10 @@
+## [2.0.7](https://github.com/HMB-research/x-ray-crawler/compare/v2.0.6...v2.0.7) (2025-10-21)
+
+
+### Bug Fixes
+
+* change package name to scoped @hmb-research/x-ray-crawler ([9f41e56](https://github.com/HMB-research/x-ray-crawler/commit/9f41e5624b840efb92d1b75e3b0a73d400e2d766))
+
 ## [2.0.6](https://github.com/HMB-research/x-ray-crawler/compare/v2.0.5...v2.0.6) (2025-10-21)
 
 
