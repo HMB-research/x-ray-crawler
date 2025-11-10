@@ -41,7 +41,11 @@
     "crawler",
     "request",
     "scrape",
-    "scraper"
+    "scraper",
+    "typescript",
+    "types",
+    "web-scraping",
+    "http-client"
   ],
   "author": "Matthew Mueller",
   "license": "MIT",

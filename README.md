@@ -133,6 +133,13 @@ npm run test:types
 npm install @hmb-research/x-ray-crawler
 ```
 
+## Documentation
+
+- **[API Reference](API.md)** - Complete API documentation with examples
+- **[TypeScript Guide](TYPESCRIPT.md)** - Comprehensive TypeScript usage guide
+- **[Contributing Guide](.github/CONTRIBUTING.md)** - How to contribute to the project
+- **[CI/CD Guide](.github/CICD_GUIDE.md)** - Continuous integration and deployment
+
 ## Test
 
 Run the test suite:
