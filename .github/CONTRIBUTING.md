@@ -96,10 +96,33 @@ git commit -m "docs: update API examples in README"
 
 **Run tests:**
 ```bash
+# Run JavaScript tests
 npm test
+
+# Run TypeScript type checking
+npm run test:types
+
+# Run tests with coverage
+npm run test:coverage
 ```
 
 **Note:** Some tests may require network access and might fail in restricted environments.
+
+### TypeScript Support
+
+This project includes full TypeScript type definitions in `index.d.ts`.
+
+**When contributing:**
+- Ensure type definitions are updated if you modify the API
+- Run `npm run test:types` to validate TypeScript definitions
+- Update type tests in `test/types.test.ts` if needed
+- All public APIs should have proper type definitions with JSDoc comments
+
+**Type Definition Guidelines:**
+- Use proper TypeScript syntax with explicit types
+- Provide method overloads for getter/setter patterns
+- Document all exported types and interfaces
+- Test types thoroughly in `test/types.test.ts`
 
 ### Code Style
 
@@ -208,6 +231,22 @@ npm run test:watch
 
 # Run specific test file
 npx jest test/crawler.spec.js
+
+# Type check TypeScript definitions
+npm run test:types
+```
+
+### TypeScript Development
+
+```bash
+# Validate type definitions
+npm run test:types
+
+# Test type definitions with specific file
+npx tsc --noEmit test/types.test.ts
+
+# Check TypeScript version
+npx tsc --version
 ```
 
 ### Debugging

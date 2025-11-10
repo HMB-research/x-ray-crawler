@@ -3,6 +3,7 @@
   "version": "2.0.8",
   "description": "x-ray's crawler",
   "main": "lib/index.js",
+  "types": "index.d.ts",
   "dependencies": {
     "cheerio": "^1.1.2",
     "debug": "^4.4.3",
@@ -19,12 +20,17 @@
     "yieldly": "0.0.1"
   },
   "devDependencies": {
-    "jest": "^30.2.0"
+    "@types/ms": "^0.7.34",
+    "@types/node": "^20.0.0",
+    "@types/superagent": "^8.1.9",
+    "jest": "^30.2.0",
+    "typescript": "^5.7.2"
   },
   "scripts": {
     "test": "jest",
     "test:watch": "npm test -- --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "test:types": "tsc --noEmit"
   },
   "repository": {
     "type": "git",
@@ -35,7 +41,11 @@
     "crawler",
     "request",
     "scrape",
-    "scraper"
+    "scraper",
+    "typescript",
+    "types",
+    "web-scraping",
+    "http-client"
   ],
   "author": "Matthew Mueller",
   "license": "MIT",
@@ -43,6 +53,10 @@
     "url": "https://github.com/HMB-research/x-ray-crawler/issues"
   },
   "homepage": "https://github.com/HMB-research/x-ray-crawler#readme",
+  "files": [
+    "lib/",
+    "index.d.ts"
+  ],
   "publishConfig": {
     "access": "public"
   }

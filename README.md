@@ -10,6 +10,7 @@ Friendly web crawler for [x-ray](http://github.com/lapwinglabs/x-ray).
 
 ## Features
 
+- Full TypeScript support with type definitions
 - Extensible drivers
 - Request and response hooks
 - Rate limiting
@@ -38,18 +39,125 @@ crawl('http://lapwinglabs.com', function(err, ctx) {
 })
 ```
 
+## TypeScript Support
+
+x-ray-crawler includes full TypeScript type definitions for enhanced development experience with IntelliSense and type checking.
+
+### Basic TypeScript Usage
+
+```typescript
+import Crawler = require('@hmb-research/x-ray-crawler');
+import { Context, Driver, CrawlerCallback } from '@hmb-research/x-ray-crawler';
+
+// Create a crawler instance
+const crawl = Crawler();
+
+// Use with typed callback
+crawl('http://example.com', (err: Error | null, ctx: Context) => {
+  if (err) {
+    console.error(err.message);
+    return;
+  }
+
+  // Full type safety for context properties
+  console.log('Status:', ctx.status);        // number
+  console.log('Body:', ctx.body);            // string | object
+  console.log('URL:', ctx.url);              // string
+  console.log('Headers:', ctx.headers);      // Record<string, string>
+});
+```
+
+### Custom Driver with Types
+
+```typescript
+import Crawler = require('@hmb-research/x-ray-crawler');
+import { Driver, Context, CrawlerCallback } from '@hmb-research/x-ray-crawler';
+
+// Implement a custom driver with full type safety
+const customDriver: Driver = (ctx: Context, callback: CrawlerCallback) => {
+  // Your custom implementation
+  ctx.status = 200;
+  ctx.body = { data: 'custom response' };
+  ctx.set({ 'Content-Type': 'application/json' });
+  callback(null, ctx);
+};
+
+const crawl = Crawler(customDriver);
+```
+
+### Chaining with Type Safety
+
+```typescript
+const crawl = Crawler()
+  .concurrency(5)                    // number
+  .timeout(5000)                     // number | string
+  .delay(100, 500)                   // (number | string, number | string)
+  .throttle(10, '1s')                // (number, number | string)
+  .limit(100)                        // number
+  .request((req) => {                // Request hook
+    console.log('Request:', req);
+  })
+  .response((res) => {               // Response hook
+    console.log('Response:', res);
+  });
+
+// All methods return the crawler instance for chaining
+crawl('http://example.com', (err, ctx) => {
+  if (!err) console.log(ctx.status);
+});
+```
+
+### Type Definitions
+
+The package exports the following TypeScript types:
+
+- `Context` - HTTP context object with request/response data
+- `Driver` - Function type for custom drivers
+- `Crawler` - Main crawler interface with all methods
+- `CrawlerCallback` - Callback function type
+- `RequestHook` - Request modification hook type
+- `ResponseHook` - Response modification hook type
+- `DriverOptions` - Options for HTTP driver configuration
+
+### Type Checking
+
+Run type checking with:
+
+```bash
+npm run test:types
+```
+
 ## Installation
 
 ```bash
 npm install @hmb-research/x-ray-crawler
 ```
 
+## Documentation
+
+- **[API Reference](API.md)** - Complete API documentation with examples
+- **[TypeScript Guide](TYPESCRIPT.md)** - Comprehensive TypeScript usage guide
+- **[Contributing Guide](.github/CONTRIBUTING.md)** - How to contribute to the project
+- **[CI/CD Guide](.github/CICD_GUIDE.md)** - Continuous integration and deployment
+
 ## Test
 
-> **Note:** Work in progress
+Run the test suite:
 
-```js
+```bash
 npm test
+```
+
+Run TypeScript type checking:
+
+```bash
+npm run test:types
+```
+
+Run tests with coverage:
+
+```bash
+npm run test:coverage
 ```
 
 ## Development
