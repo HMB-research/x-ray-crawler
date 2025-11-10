@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/HMB-research/x-ray-crawler/compare/v2.0.8...v2.1.0) (2025-11-10)
+
+
+### Features
+
+* add full TypeScript type definitions support ([341cafa](https://github.com/HMB-research/x-ray-crawler/commit/341cafadb7307cafbde16b5ddb55d46fe82f79f0))
+
 ## [2.0.8](https://github.com/HMB-research/x-ray-crawler/compare/v2.0.7...v2.0.8) (2025-10-21)
 
 
