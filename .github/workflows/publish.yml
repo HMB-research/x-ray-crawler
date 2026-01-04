@@ -1,5 +1,15 @@
 name: Publish Package
 
+# This workflow uses npm Trusted Publishers with OIDC authentication.
+# No NPM_TOKEN secret is required - authentication is handled via GitHub's OIDC provider.
+#
+# Prerequisites:
+#   1. Configure trusted publisher on npmjs.com:
+#      - Go to package settings → Trusted Publishers
+#      - Select "GitHub Actions"
+#      - Set: owner=HMB-research, repo=x-ray-crawler, workflow=publish.yml
+#   2. Ensure this workflow file name matches the trusted publisher configuration
+
 on:
   release:
     types: [published]
@@ -18,7 +28,7 @@ on:
 
 permissions:
   contents: read
-  id-token: write
+  id-token: write  # Required for npm OIDC trusted publishing
 
 jobs:
   publish:
@@ -29,10 +39,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # Node.js 22.x includes npm 11.5+ which is required for OIDC trusted publishing
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
+          node-version: '22.x'
           registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
 
@@ -52,17 +63,20 @@ jobs:
           fi
         continue-on-error: true
 
+      # OIDC trusted publishing: No NODE_AUTH_TOKEN needed
+      # npm automatically uses OIDC when:
+      #   1. id-token: write permission is granted
+      #   2. registry-url is configured in setup-node
+      #   3. NODE_AUTH_TOKEN is NOT set (crucial - even empty string breaks OIDC)
+      #   4. Trusted publisher is configured on npmjs.com
+      # Provenance is automatically included with trusted publishing
       - name: Publish to NPM (latest)
         if: github.event_name == 'release' || github.event.inputs.npm_tag == 'latest'
         run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish to NPM (tagged)
         if: github.event_name == 'workflow_dispatch' && github.event.inputs.npm_tag != 'latest'
         run: npm publish --provenance --access public --tag ${{ github.event.inputs.npm_tag }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Notify on success
         if: success()
