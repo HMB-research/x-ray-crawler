@@ -153,28 +153,67 @@ feat!: change default concurrency (BREAKING CHANGE)
 - Updates workflow actions
 - Labels: `github-actions`, `automated`
 
+## NPM Trusted Publishers (OIDC)
+
+This project uses **npm Trusted Publishers** for secure package publishing. This eliminates the need for long-lived NPM tokens by using OpenID Connect (OIDC) for authentication.
+
+### Benefits
+- **No token management** - No secrets to store, rotate, or accidentally expose
+- **Short-lived credentials** - Each publish uses workflow-specific, non-reusable credentials
+- **Automatic provenance** - Supply chain security attestations included by default
+- **Enhanced security** - Tokens cannot be exfiltrated or reused
+
+### Setup Instructions
+
+Configure trusted publishers on npmjs.com for this package:
+
+1. **Log in to npmjs.com** and navigate to the package settings
+2. **Go to "Trusted Publishers"** section
+3. **Add GitHub Actions publisher** with these exact values:
+
+   | Field | Value |
+   |-------|-------|
+   | Owner | `HMB-research` |
+   | Repository | `x-ray-crawler` |
+   | Workflow file | `release.yml` |
+   | Environment | *(leave empty)* |
+
+4. **Add a second publisher** for the publish workflow:
+
+   | Field | Value |
+   |-------|-------|
+   | Owner | `HMB-research` |
+   | Repository | `x-ray-crawler` |
+   | Workflow file | `publish.yml` |
+   | Environment | *(leave empty)* |
+
+### Requirements
+
+- **Node.js 22.x** - Includes npm 11.5+ required for OIDC
+- **`id-token: write` permission** - Allows GitHub to generate OIDC tokens
+- **`registry-url` configured** - In the `setup-node` action
+- **No `NODE_AUTH_TOKEN`** - Must NOT be set (even empty string breaks OIDC)
+
+### Troubleshooting
+
+**404 error on publish:**
+- Verify trusted publisher configuration matches workflow file exactly
+- Check organization/owner name capitalization matches GitHub URL
+- Ensure `package.json` has correct `repository.url`
+
+**Authentication errors:**
+- Confirm `id-token: write` permission is set
+- Verify `registry-url: 'https://registry.npmjs.org'` in setup-node
+- Ensure `NODE_AUTH_TOKEN` or `NPM_TOKEN` is NOT set in the workflow
+
 ## Required Secrets
-
-Configure these secrets in your GitHub repository settings:
-
-### NPM_TOKEN
-**Required for:** NPM package publishing
-
-**How to create:**
-1. Log in to npmjs.com
-2. Go to Account Settings → Access Tokens
-3. Click "Generate New Token"
-4. Select "Automation" type
-5. Copy token and add to GitHub repository secrets
-
-**Where to configure:**
-- Repository Settings → Secrets and variables → Actions
-- Add new secret: `NPM_TOKEN`
 
 ### GITHUB_TOKEN
 **Required for:** GitHub releases, package publishing
 
 **Configuration:** Automatically provided by GitHub Actions (no setup needed)
+
+> **Note:** NPM_TOKEN is no longer required. This project uses OIDC trusted publishing instead.
 
 ## Permissions
 
@@ -209,7 +248,7 @@ The workflows require specific permissions:
 
 1. **Monitor workflow failures** via GitHub notifications
 2. **Review Dependabot PRs** regularly
-3. **Keep NPM_TOKEN** secure and rotated
+3. **Maintain trusted publisher config** on npmjs.com (no tokens to rotate!)
 4. **Check security audit results** weekly
 5. **Merge only passing PRs** to maintain quality
 
@@ -237,10 +276,11 @@ The workflows require specific permissions:
 
 ### NPM publish failing
 
-- Verify NPM_TOKEN is valid and not expired
-- Check package name availability on NPM
-- Ensure version doesn't already exist
-- Review NPM access permissions
+- **Trusted publisher not configured:** Verify trusted publisher is set up on npmjs.com
+- **Workflow mismatch:** Ensure workflow filename matches trusted publisher config exactly
+- **Version exists:** Ensure version doesn't already exist on NPM
+- **OIDC issues:** Check that `id-token: write` permission is set and `NODE_AUTH_TOKEN` is NOT set
+- **Registry URL:** Verify `registry-url: 'https://registry.npmjs.org'` in setup-node action
 
 ### Security audit failing
 
@@ -269,6 +309,7 @@ The workflows require specific permissions:
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)
 - [Semantic Release](https://github.com/semantic-release/semantic-release)
 - [Conventional Commits](https://www.conventionalcommits.org/)
+- [NPM Trusted Publishers](https://docs.npmjs.com/trusted-publishers/) - OIDC-based publishing
 - [NPM Provenance](https://docs.npmjs.com/generating-provenance-statements)
 - [Dependabot Configuration](https://docs.github.com/en/code-security/dependabot)
 
